@@ -1,0 +1,5 @@
+target/
+*.iml
+.idea/
+*.properties
+!config.example.properties
