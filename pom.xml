@@ -17,7 +17,6 @@
         <junit.version>5.14.4</junit.version>
         <rest-assured.version>5.5.7</rest-assured.version>
         <jackson.version>2.18.4</jackson.version>
-        <allure.version>2.25.0</allure.version>
     </properties>
 
     <dependencies>
