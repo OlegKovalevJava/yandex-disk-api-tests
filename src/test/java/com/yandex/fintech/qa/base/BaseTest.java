@@ -1,25 +1,26 @@
-package com.yandex.fintech.qa;
+package com.yandex.fintech.qa.base;
 
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.util.Properties;
 
 import static io.restassured.RestAssured.given;
 
-public class GetDiskInfoTest {
+/**
+ * Базовый класс для всех тестов API Яндекс.Диска.
+ * Загружает конфигурацию, настраивает базовый URL и общую спецификацию запросов.
+ */
+public class BaseTest {
 
-    private static Properties config;
-    private static RequestSpecification requestSpec;
+    protected static final Properties config = new Properties();
+    protected static RequestSpecification requestSpec;
 
     @BeforeAll
     public static void setUp() {
-        config = new Properties();
-        try (InputStream input = GetDiskInfoTest.class.getClassLoader().getResourceAsStream("config.properties")) {
+        try (InputStream input = BaseTest.class.getClassLoader().getResourceAsStream("config.properties")) {
             if (input == null) {
                 throw new RuntimeException("Не удалось найти файл config.properties");
             }
@@ -41,16 +42,6 @@ public class GetDiskInfoTest {
         requestSpec = given()
                 .header("Authorization", "OAuth " + token)
                 .contentType("application/json");
-    }
-
-    @Test
-    @DisplayName("GET /v1/disk — получение информации о Диске: статус 200")
-    public void getDiskInfoShouldReturn200() {
-        given()
-                .spec(requestSpec)
-                .when()
-                .get(config.getProperty("disk.api.version") + "/disk")
-                .then()
-                .statusCode(200);
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 }

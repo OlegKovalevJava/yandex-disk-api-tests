@@ -1,5 +1,18 @@
+# Maven
 target/
 *.iml
+
+# IDE
 .idea/
+out/
+
+# Конфиденциальные данные
 *.properties
 !config.example.properties
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Логи
+*.log
